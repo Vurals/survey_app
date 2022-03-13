@@ -27,7 +27,7 @@ List<Question> questions() {
       },
     ),
     PolarQuestion(
-        question: "What is your gender?",
+        question: "Please enter your gender?",
         answers: ["Female", "Male"],
         isMandatory: true),
     NestedQuestion(
