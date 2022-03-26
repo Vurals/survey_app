@@ -524,26 +524,30 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
           Container(
               padding: const EdgeInsets.only(left: 175.0, top: 20.0),
-              child: ElevatedButton(
-                child: const Text('Gönder'),
-                onPressed: status
-                    ? () {
-                        // It returns true if the form is valid, otherwise returns false
-                        if (_formKey.currentState!.validate()) {
-                          //disableButton();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SubmitedPage()),
-                          );
-                          // If the form is valid, display a Snackbar.
-                          // ignore: deprecated_member_use
-                          Scaffold.of(context).showSnackBar(const SnackBar(
-                              content: Text('Data is in processing.')));
-                        }
-                      }
-                    : null,
-              )),
+              child: status
+                  ? ElevatedButton(
+                      child: const Text('Gönder'),
+                      onPressed: status
+                          ? () {
+                              // It returns true if the form is valid, otherwise returns false
+                              if (_formKey.currentState!.validate()) {
+                                //disableButton();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SubmitedPage()),
+                                );
+                                // If the form is valid, display a Snackbar.
+                                // ignore: deprecated_member_use
+                                Scaffold.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Data is in processing.')));
+                              }
+                            }
+                          : null,
+                    )
+                  : new Container()),
         ],
       ),
     );
