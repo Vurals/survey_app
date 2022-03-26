@@ -2,11 +2,15 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
+import pro.truongsinh.appium_flutter.FlutterFinder;
+import pro.truongsinh.appium_flutter.finder.FlutterElement;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +29,7 @@ public class ProjectTests {
     private AppiumDriver<MobileElement> appiumDriver;
     private WebDriverWait webDriverWait;
 
-    @BeforeClass
+    @BeforeTest
     public void setup() throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", DEVICE_NAME);
@@ -47,8 +51,7 @@ public class ProjectTests {
      * This method specifically tests when improper data is given to the survey whether if it will show the send button or not.
      */
     @Test
-    public void testSendButtonVisibility() {
-
+    public void testSendButtonVisibility() throws InterruptedException {
     }
 
     /**
@@ -85,6 +88,11 @@ public class ProjectTests {
     @Test
     public void checkTestButtonVisibility() {
 
+    }
+
+    @AfterTest
+    public void teardown() {
+        appiumDriver.quit();
     }
 
 }
