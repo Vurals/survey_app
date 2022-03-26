@@ -6,12 +6,12 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'COVİD-19 Anket Uygulaması';
+    const appTitle = 'COVİD-19 Anket Uygulaması';
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
           appBar: AppBar(
-            title: Text(appTitle),
+            title: const Text(appTitle),
           ),
           body: SingleChildScrollView(child: MyCustomForm())),
     );
@@ -218,12 +218,6 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    var textStyle = const TextStyle(
-        fontFamily: 'Aleo',
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.bold,
-        fontSize: 25.0,
-        color: Colors.white);
     return Form(
       key: _formKey,
       child: Column(
@@ -499,7 +493,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
@@ -531,7 +525,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
               padding: const EdgeInsets.only(left: 175.0, top: 20.0),
               child: ElevatedButton(
-                child: const Text('Send'),
+                child: const Text('Gönder'),
                 onPressed: status
                     ? () {
                         // It returns true if the form is valid, otherwise returns false
@@ -539,11 +533,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                           //disableButton();
                           Navigator.push(
                             context,
-                            new MaterialPageRoute(
-                                builder: (context) => new SubmitedPage()),
+                            MaterialPageRoute(
+                                builder: (context) => SubmitedPage()),
                           );
                           // If the form is valid, display a Snackbar.
-                          Scaffold.of(context).showSnackBar(SnackBar(
+                          // ignore: deprecated_member_use
+                          Scaffold.of(context).showSnackBar(const SnackBar(
                               content: Text('Data is in processing.')));
                         }
                       }
