@@ -1,3 +1,4 @@
+import appium_flutter_driver.finder.FlutterElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
@@ -9,8 +10,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
-import pro.truongsinh.appium_flutter.FlutterFinder;
-import pro.truongsinh.appium_flutter.finder.FlutterElement;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -52,6 +51,7 @@ public class ProjectTests {
      */
     @Test
     public void testSendButtonVisibility() throws InterruptedException {
+        FlutterElement a;
     }
 
     /**
