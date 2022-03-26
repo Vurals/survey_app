@@ -1,3 +1,4 @@
+import appium_flutter_driver.FlutterFinder;
 import appium_flutter_driver.finder.FlutterElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -51,7 +52,9 @@ public class ProjectTests {
      */
     @Test
     public void testSendButtonVisibility() throws InterruptedException {
-        FlutterElement a;
+        FlutterFinder finder = new FlutterFinder(appiumDriver);
+        FlutterElement a =  finder.byValueKey("a");
+        System.out.println(a);
     }
 
     /**
