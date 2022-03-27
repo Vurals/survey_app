@@ -1,7 +1,6 @@
-import appium_flutter_driver.FlutterFinder;
-import appium_flutter_driver.finder.FlutterElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
@@ -14,34 +13,33 @@ import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 public class ProjectTests {
 
     public static final String DEVICE_NAME = "sdk_gphone_x86";
     public static final String UDID = "emulator-5554";
-    public static final String PLATFORM_NAME = "ANDROID";
+    public static final String PLATFORM_NAME = "Android";
     public static final String PLATFORM_VERSION = "11";
     public static final String APP_PACKAGE = "com.example.survey_app";
-    public static final String APP_ACTIVITY = "com.example.survey_app.MainActivity";
+    public static final String APP_ACTIVITY = "MainActivity";
 
 
 
-    private AppiumDriver<MobileElement> appiumDriver;
+    private AndroidDriver<MobileElement> appiumDriver;
     private WebDriverWait webDriverWait;
 
     @BeforeTest
     public void setup() throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", DEVICE_NAME);
-        cap.setCapability(MobileCapabilityType.UDID, UDID);
         cap.setCapability(CapabilityType.PLATFORM_NAME, PLATFORM_NAME);
         cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, PLATFORM_VERSION);
         cap.setCapability("appPackage", APP_PACKAGE);
         cap.setCapability("appActivity", APP_ACTIVITY);
 
         URL url = new URL("http://127.0.0.1:4723/wd/hub");
-        appiumDriver = new AppiumDriver<MobileElement>(url, cap);
-        webDriverWait = new WebDriverWait(appiumDriver, 10);
+        appiumDriver = new AndroidDriver<MobileElement>(url, cap);
 
         System.out.println("Application Started...");
     }
@@ -52,9 +50,14 @@ public class ProjectTests {
      */
     @Test
     public void testSendButtonVisibility() throws InterruptedException {
-        FlutterFinder finder = new FlutterFinder(appiumDriver);
-        FlutterElement a =  finder.byValueKey("a");
-        System.out.println(a);
+        MobileElement element = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[1]"));
+        Thread.sleep(5000);
+        element.click();
+        Thread.sleep(5000);
+        element.sendKeys("Bora");
+        Thread.sleep(5000);
+        System.out.println("bora");
+        System.out.println("asd");
     }
 
     /**
