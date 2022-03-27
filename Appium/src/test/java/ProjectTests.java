@@ -16,16 +16,17 @@ import org.testng.annotations.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ProjectTests {
 
-    public static final String DEVICE_NAME = "sdk_gphone_x86";
+    public static final String DEVICE_NAME = "Pixel 2 API 29";
     public static final String UDID = "emulator-5554";
     public static final String PLATFORM_NAME = "Android";
-    public static final String PLATFORM_VERSION = "11";
+    public static final String PLATFORM_VERSION = "10";
     public static final String APP_PACKAGE = "com.example.survey_app";
-    public static final String APP_ACTIVITY = "MainActivity";
+    public static final String APP_ACTIVITY = "com.example.survey_app.MainActivity";
 
 
 
@@ -244,8 +245,111 @@ public class ProjectTests {
      * This method specifically tests when improper format is given to the date field whether if it will allow the improper format or not.
      */
     @Test
-    public void testDateFormatAcceptance() {
+    public void testDateFormatAcceptance() throws InterruptedException {
+        MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        nameField.click();
+        Thread.sleep(1000);
+        nameField.sendKeys("Matt Murdock");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
 
+        chooseCity();
+        chooseVaccine();
+        fillEffectsAndSymptoms();
+
+        Thread.sleep(1000);
+
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[4]"));
+
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(1000);
+        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
+        appiumDriver.hideKeyboard();
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        for (int i = -2; i < 35; i++) {
+            dayField.click();
+            dayField.sendKeys(i + "");
+            Thread.sleep(500);
+            try{
+                if(i < 1 || i > 31)
+                    Assert.assertFalse(checkButtonExistence());
+                else
+                    Assert.assertTrue(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #2 failed: Day " + i + " yields a wrong result.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(500);
+
+        for (int i = -2; i < 15; i++) {
+            monthField.click();
+            monthField.sendKeys(i + "");
+            Thread.sleep(500);
+            try{
+                if(i < 1 || i > 12)
+                    Assert.assertFalse(checkButtonExistence());
+                else
+                    Assert.assertTrue(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #2 failed: Month " + i + " yields a wrong result.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(500);
+
+        for (int i = 1898; i < 2025; i++) {
+            if(i >1903 && i < 2020)     //TODO: If the tests run faster, remove this
+                continue;
+            yearField.click();
+            yearField.sendKeys(i + "");
+            Thread.sleep(500);
+            try{
+                if(i < 1900 || i > 2022)
+                    Assert.assertFalse(checkButtonExistence());
+                else
+                    Assert.assertTrue(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #2 failed: Year " + i + " yields a wrong result.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        sendButton.click();
+
+        Thread.sleep(1000);
+
+        System.out.println("Test case #2 is successful.");
     }
 
     /**
@@ -300,8 +404,72 @@ public class ProjectTests {
      * This method specifically tests this by entering all available letters to the name field and checks if the name field accepts the letter or not.
      */
     @Test
-    public void testNameFieldLetterAcceptance() {
+    public void testNameFieldLetterAcceptance() throws InterruptedException {
+        MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        
+        //Fill other fields first
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
 
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(1000);
+        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
+        appiumDriver.hideKeyboard();
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        chooseCity();
+        chooseVaccine();
+        fillEffectsAndSymptoms();
+
+        String englishLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
+
+        for (int i = 32; i < 127; i++) {
+            String character = Character.toString((char) i);
+            if(englishLetters.contains(character))
+                continue;
+            nameField.click();
+            nameField.sendKeys("abcd " + character);
+            Thread.sleep(1000);
+            try{
+                Assert.assertFalse(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #4 failed: " + character + " is valid in the name field when it should not be.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        //All English Letters
+        nameField.click();
+        nameField.sendKeys(englishLetters);
+        Thread.sleep(1000);
+        try{
+            Assert.assertTrue(checkButtonExistence());
+        }
+        catch(AssertionError e){
+            System.out.println("Test case #4 failed: The english characters are not valid in the name field when they should be.");
+            //TODO: Return after potential fail.
+        }
+
+        appiumDriver.hideKeyboard();
+
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        sendButton.click();
+
+        Thread.sleep(1000);
+
+        System.out.println("Test case #4 is successful.");
     }
 
     /**
@@ -309,8 +477,54 @@ public class ProjectTests {
      * This method specifically tests this by clicking the send button and checks if it is still clickable.
      */
     @Test
-    public void checkTestButtonVisibility() {
+    public void checkTestButtonVisibility() throws InterruptedException {
+        MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        nameField.click();
+        Thread.sleep(1000);
+        nameField.sendKeys("Matt Murdock");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
 
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
+
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(1000);
+        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
+        appiumDriver.hideKeyboard();
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        chooseCity();
+        chooseVaccine();
+        fillEffectsAndSymptoms();
+
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        sendButton.click();
+
+        try{
+            Assert.assertFalse(Boolean.parseBoolean(sendButton.getAttribute("clickable")));
+        }
+        catch(AssertionError e){
+            System.out.println("Test case #5 failed: The \"Send\" button is still clickable after the first click.");
+            return;
+        }
+        catch (Exception e) {
+            System.out.println("Test case #5 is successful.");
+            return;
+        }
+
+        System.out.println("Test case #5 is successful.");
     }
 
     @AfterTest
@@ -323,4 +537,36 @@ public class ProjectTests {
         appiumDriver.resetApp();
         Thread.sleep(10000);
     }
+    private void chooseCity() throws InterruptedException {
+        MobileElement cityDropdown = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
+        cityDropdown.click();
+        Thread.sleep(1000);
+        MobileElement cityItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Adana\"]"));
+        cityItem.click();
+        Thread.sleep(1000);
+    }
+
+    private void chooseVaccine() throws InterruptedException {
+        MobileElement vaccineDropdown = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"-\"]"));
+        vaccineDropdown.click();
+        Thread.sleep(1000);
+        MobileElement vaccineItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Sinovac\"]"));
+        vaccineItem.click();
+        Thread.sleep(1000);
+    }
+
+    private void fillEffectsAndSymptoms() throws InterruptedException {
+        MobileElement sideEffectField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[5]"));
+        MobileElement symptomField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[6]"));
+
+        sideEffectField.click();
+        sideEffectField.sendKeys("None");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        symptomField.click();
+        symptomField.sendKeys("None");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+    }
+
 }
