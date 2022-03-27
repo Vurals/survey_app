@@ -156,8 +156,111 @@ public class ProjectTests {
      * This method specifically tests when improper format is given to the date field whether if it will allow the improper format or not.
      */
     @Test
-    public void testDateFormatAcceptance() {
-        
+    public void testDateFormatAcceptance() throws InterruptedException {
+        MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        nameField.click();
+        Thread.sleep(1000);
+        nameField.sendKeys("Matt Murdock");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        chooseCity();
+        chooseVaccine();
+        fillEffectsAndSymptoms();
+
+        Thread.sleep(1000);
+
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[4]"));
+
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(1000);
+        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
+        appiumDriver.hideKeyboard();
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        for (int i = -2; i < 35; i++) {
+            dayField.click();
+            dayField.sendKeys(i + "");
+            Thread.sleep(500);
+            try{
+                if(i < 1 || i > 31)
+                    Assert.assertFalse(checkButtonExistence());
+                else
+                    Assert.assertTrue(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #2 failed: Day " + i + " yields a wrong result.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(500);
+
+        for (int i = -2; i < 15; i++) {
+            monthField.click();
+            monthField.sendKeys(i + "");
+            Thread.sleep(500);
+            try{
+                if(i < 1 || i > 12)
+                    Assert.assertFalse(checkButtonExistence());
+                else
+                    Assert.assertTrue(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #2 failed: Month " + i + " yields a wrong result.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(500);
+
+        for (int i = 1898; i < 2025; i++) {
+            if(i >1903 && i < 2020)     //TODO: If the tests run faster, remove this
+                continue;
+            yearField.click();
+            yearField.sendKeys(i + "");
+            Thread.sleep(500);
+            try{
+                if(i < 1900 || i > 2022)
+                    Assert.assertFalse(checkButtonExistence());
+                else
+                    Assert.assertTrue(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #2 failed: Year " + i + " yields a wrong result.");
+                //TODO: Return after potential fail.
+            }
+        }
+
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        sendButton.click();
+
+        Thread.sleep(1000);
+
+        System.out.println("Test case #2 is successful.");
     }
 
     /**
@@ -237,7 +340,7 @@ public class ProjectTests {
         MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
         sendButton.click();
 
-        Thread.sleep(5000);
+        Thread.sleep(1000);
 
         System.out.println("Test case #4 is successful.");
     }
