@@ -143,9 +143,16 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   checkAllFields() {
     if ((textEditingController.text.trim() != "") &&
-        (textEditingController2.text.trim() != "") &&
-        (textEditingController3.text.trim() != "") &&
-        (textEditingController4.text.trim() != "") &&
+        ((isNumeric(textEditingController2.text) &&
+            int.parse(textEditingController2.text) <= 31 &&
+            textEditingController2.text.length == 2)) &&
+        ((isNumeric(textEditingController3.text) &&
+            int.parse(textEditingController3.text) <= 12 &&
+            textEditingController3.text.length == 2)) &&
+        ((isNumeric(textEditingController4.text) &&
+            int.parse(textEditingController4.text) <= 2022 &&
+            int.parse(textEditingController4.text) >= 1900 &&
+            textEditingController4.text.length == 4)) &&
         (textEditingController5.text.trim() != "") &&
         (textEditingController6.text.trim() != "") &&
         (_selectedValue != "-") &&
@@ -554,16 +561,3 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
-// TextFormField(
-//             decoration: const InputDecoration(
-//               icon: const Icon(Icons.phone),
-//               hintText: 'Enter a phone number',
-//               labelText: 'Phone',
-//             ),
-//             validator: (value) {
-//               if (value!.isEmpty) {
-//                 return 'Please enter valid phone number';
-//               }
-//               return null;
-//             },
-//           ),
