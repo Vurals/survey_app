@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
@@ -50,14 +51,102 @@ public class ProjectTests {
      */
     @Test
     public void testSendButtonVisibility() throws InterruptedException {
-        MobileElement element = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[1]"));
-        Thread.sleep(5000);
-        element.click();
-        Thread.sleep(5000);
-        element.sendKeys("Bora");
-        Thread.sleep(5000);
-        System.out.println("bora");
-        System.out.println("asd");
+        MobileElement nameFiled = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        MobileElement dateDayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement dateMonthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement dateYearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
+        MobileElement sideEffectField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[5]"));
+        MobileElement pcrTextField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[6]"));
+        MobileElement dropdownMenu = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
+        MobileElement dropdownVaccine = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[2]"));
+
+        //Name
+        Thread.sleep(1000);
+        nameFiled.click();
+        Thread.sleep(1000);
+        nameFiled.sendKeys("Bora");
+
+        Assert.assertFalse(checkButtonExistence());
+        System.out.println("Assertion#1 Passed");
+
+        //Date
+        Thread.sleep(1000);
+        dateDayField.click();
+        Thread.sleep(1000);
+        dateDayField.sendKeys("00");
+
+        Thread.sleep(1000);
+        dateMonthField.click();
+        Thread.sleep(1000);
+        dateMonthField.sendKeys("00");
+
+        Thread.sleep(1000);
+        dateYearField.click();
+        Thread.sleep(1000);
+        dateYearField.sendKeys("00");
+
+        Assert.assertFalse(checkButtonExistence());
+        System.out.println("Assertion#2 Passed");
+
+        //Dropdown City
+        Thread.sleep(1000);
+        dropdownMenu.click();
+        Thread.sleep(1000);
+
+        Thread.sleep(2000);
+        MobileElement chosenCity = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Ağrı\"]"));
+        Thread.sleep(1000);
+        chosenCity.click();
+
+        Assert.assertFalse(checkButtonExistence());
+        System.out.println("Assertion#3 Passed");
+
+        //Dropdown Vaccine
+        Thread.sleep(1000);
+        dropdownVaccine.click();
+        Thread.sleep(1000);
+
+        Thread.sleep(2000);
+        MobileElement chosenVaccine = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Sinovac\"]"));
+        Thread.sleep(1000);
+        chosenVaccine.click();
+
+        Assert.assertFalse(checkButtonExistence());
+        System.out.println("Assertion#4 Passed");
+
+        //Side Effect
+        Thread.sleep(1000);
+        sideEffectField.click();
+        Thread.sleep(1000);
+        sideEffectField.sendKeys("Bora");
+
+        Assert.assertFalse(checkButtonExistence());
+        System.out.println("Assertion#5 Passed");
+
+        //PCR Field
+        appiumDriver.hideKeyboard();
+        Thread.sleep(1000);
+        pcrTextField.click();
+        Thread.sleep(1000);
+        pcrTextField.sendKeys("Bora");
+        appiumDriver.hideKeyboard();
+
+        Assert.assertTrue(checkButtonExistence());
+        System.out.println("Assertion#6 Passed");
+
+        System.out.println("\nTest Case#1 Passed");
+    }
+
+    private boolean checkButtonExistence() throws InterruptedException {
+        appiumDriver.hideKeyboard();
+        Thread.sleep(1000);
+        try {
+            MobileElement button = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     /**
