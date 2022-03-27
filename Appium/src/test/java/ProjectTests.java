@@ -224,31 +224,44 @@ public class ProjectTests {
         Thread.sleep(1000);
         appiumDriver.hideKeyboard();
 
-        nameField.click();
-
         String englishLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
 
         for (int i = 32; i < 127; i++) {
             String character = Character.toString((char) i);
             if(englishLetters.contains(character))
                 continue;
+            nameField.click();
             nameField.sendKeys("abcd " + character);
             Thread.sleep(1000);
-            appiumDriver.hideKeyboard();
-            assert
+            try{
+                Assert.assertFalse(checkButtonExistence());
+            }
+            catch(AssertionError e){
+                System.out.println("Test case #4 failed: " + character + " is valid in the name field when it should not be.");
+                //TODO: Return after potential fail.
+            }
         }
 
         //All English Letters
+        nameField.click();
         nameField.sendKeys(englishLetters);
         Thread.sleep(1000);
+        try{
+            Assert.assertTrue(checkButtonExistence());
+        }
+        catch(AssertionError e){
+            System.out.println("Test case #4 failed: The english characters are not valid in the name field when they should be.");
+            //TODO: Return after potential fail.
+        }
+
         appiumDriver.hideKeyboard();
-
-
 
         MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
         sendButton.click();
 
         Thread.sleep(5000);
+
+        System.out.println("Test case #4 is successful.");
     }
 
     /**
