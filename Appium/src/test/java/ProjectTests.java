@@ -14,16 +14,18 @@ import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ProjectTests {
 
-    public static final String DEVICE_NAME = "sdk_gphone_x86";
+    public static final String DEVICE_NAME = "Pixel 2 API 29";
     public static final String UDID = "emulator-5554";
     public static final String PLATFORM_NAME = "Android";
-    public static final String PLATFORM_VERSION = "11";
+    public static final String PLATFORM_VERSION = "10";
     public static final String APP_PACKAGE = "com.example.survey_app";
-    public static final String APP_ACTIVITY = "MainActivity";
+    public static final String APP_ACTIVITY = "com.example.survey_app.MainActivity";
 
 
 
@@ -172,8 +174,81 @@ public class ProjectTests {
      * This method specifically tests this by entering all available letters to the name field and checks if the name field accepts the letter or not.
      */
     @Test
-    public void testNameFieldLetterAcceptance() {
+    public void testNameFieldLetterAcceptance() throws InterruptedException {
+        MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        
+        //Fill other fields first
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
 
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(1000);
+        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
+        appiumDriver.hideKeyboard();
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        MobileElement cityDropdown = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
+        cityDropdown.click();
+        Thread.sleep(1000);
+        MobileElement cityItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Adana\"]"));
+        cityItem.click();
+        Thread.sleep(1000);
+
+        MobileElement vaccineDropdown = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"-\"]"));
+        vaccineDropdown.click();
+        Thread.sleep(1000);
+        MobileElement vaccineItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Sinovac\"]"));
+        vaccineItem.click();
+        Thread.sleep(1000);
+
+        MobileElement sideEffectField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[5]"));
+        MobileElement symptomField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[6]"));
+
+        sideEffectField.click();
+        sideEffectField.sendKeys("None");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        symptomField.click();
+        symptomField.sendKeys("None");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        nameField.click();
+
+        String englishLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
+
+        for (int i = 32; i < 127; i++) {
+            String character = Character.toString((char) i);
+            if(englishLetters.contains(character))
+                continue;
+            nameField.sendKeys("abcd " + character);
+            Thread.sleep(1000);
+            appiumDriver.hideKeyboard();
+            assert
+        }
+
+        //All English Letters
+        nameField.sendKeys(englishLetters);
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+
+
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        sendButton.click();
+
+        Thread.sleep(5000);
     }
 
     /**
