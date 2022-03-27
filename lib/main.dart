@@ -225,7 +225,6 @@ class MyCustomFormState extends State<MyCustomForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            key: ValueKey('a'),
             alignment: Alignment.topLeft,
             child: const Text(
               ' Lütfe tam adınızı giriniz.',
