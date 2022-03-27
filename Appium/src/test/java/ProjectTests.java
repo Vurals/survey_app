@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -14,6 +15,7 @@ import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ProjectTests {
@@ -30,8 +32,95 @@ public class ProjectTests {
     private AndroidDriver<MobileElement> appiumDriver;
     private WebDriverWait webDriverWait;
 
+    private ArrayList<String> cityList;
+
+    private void loadCities() {
+        cityList = new ArrayList<>();
+        cityList.add("Adana");
+        cityList.add("Adıyaman");
+        cityList.add("Afyonkarahisar");
+        cityList.add("Ağrı");
+        cityList.add("Aksaray");
+        cityList.add("Amasya");
+        cityList.add("Ankara");
+        cityList.add("Antalya");
+        cityList.add("Ardahan");
+        cityList.add("Artvin");
+        cityList.add("Aydın");
+        cityList.add("Balıkesir");
+        cityList.add("Bartın");
+        cityList.add("Batman");
+        cityList.add("Bayburt");
+        cityList.add("Bilecik");
+        cityList.add("Bingöl");
+        cityList.add("Bitlis");
+        cityList.add("Bolu");
+        cityList.add("Burdur");
+        cityList.add("Bursa");
+        cityList.add("Çanakkale");
+        cityList.add("Çankırı");
+        cityList.add("Çorum");
+        cityList.add("Denizli");
+        cityList.add("Diyarbakır");
+        cityList.add("Düzce");
+        cityList.add("Edirne");
+        cityList.add("Elazığ");
+        cityList.add("Erzincan");
+        cityList.add("Erzurum");
+        cityList.add("Eskişehir");
+        cityList.add("Gaziantep");
+        cityList.add("Giresun");
+        cityList.add("Gümüşhane");
+        cityList.add("Hakkâri");
+        cityList.add("Hatay");
+        cityList.add("Iğdır");
+        cityList.add("Isparta");
+        cityList.add("İstanbul");
+        cityList.add("İzmir");
+        cityList.add("Kahramanmaraş");
+        cityList.add("Karabük");
+        cityList.add("Karaman");
+        cityList.add("Kars");
+        cityList.add("Kastamonu");
+        cityList.add("Kayseri");
+        cityList.add("Kilis");
+        cityList.add("Kırıkkale");
+        cityList.add("Kırklareli");
+        cityList.add("Kırşehir");
+        cityList.add("Kocaeli");
+        cityList.add("Konya");
+        cityList.add("Kütahya");
+        cityList.add("Malatya");
+        cityList.add("Manisa");
+        cityList.add("Mardin");
+        cityList.add("Mersin");
+        cityList.add("Muğla");
+        cityList.add("Muş");
+        cityList.add("Nevşehir");
+        cityList.add("Niğde");
+        cityList.add("Ordu");
+        cityList.add("Osmaniye");
+        cityList.add("Rize");
+        cityList.add("Sakarya");
+        cityList.add("Samsun");
+        cityList.add("Şanlıurfa");
+        cityList.add("Siirt");
+        cityList.add("Sinop");
+        cityList.add("Sivas");
+        cityList.add("Şırnak");
+        cityList.add("Tekirdağ");
+        cityList.add("Tokat");
+        cityList.add("Trabzon");
+        cityList.add("Tunceli");
+        cityList.add("Uşak");
+        cityList.add("Van");
+        cityList.add("Yalova");
+        cityList.add("Yozgat");
+        cityList.add("Zonguldak");
+    }
     @BeforeTest
     public void setup() throws Exception {
+        loadCities();
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", DEVICE_NAME);
         cap.setCapability(CapabilityType.PLATFORM_NAME, PLATFORM_NAME);
@@ -41,6 +130,7 @@ public class ProjectTests {
 
         URL url = new URL("http://127.0.0.1:4723/wd/hub");
         appiumDriver = new AndroidDriver<MobileElement>(url, cap);
+        webDriverWait = new WebDriverWait(appiumDriver, 10);
 
         System.out.println("Application Started...");
     }
@@ -159,12 +249,50 @@ public class ProjectTests {
     }
 
     /**
-     * In the survey, when a vaccination type is chosen in the dropdown menu, that type should be shown in the survey body.
-     * This method specifically tests this by choosing all of the vaccination types one by one then checking if they are shown in the survey body.
+     * In the survey, when a city is chosen in the dropdown menu, that type should be shown in the survey body.
+     * This method specifically tests this by choosing all of the cities one by one then checking if they are shown in the survey body.
      */
     @Test
-    public void testVaccinationTypeDropdownMenu() {
+    public void testCityDropdownMenu() throws Exception {
+        MobileElement dropdownCity = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
 
+        for (String city : cityList) {
+            waitUntilElementPresent("(//android.widget.Button[@content-desc=\"-\"])[1]", 10000L);
+            dropdownCity.click();
+            waitUntilElementPresent("//android.view.View[@content-desc=\"" + city + "\"]", 10000L);
+            MobileElement chosenCity = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"" + city + "\"]"));
+            webDriverWait.until(ExpectedConditions.elementToBeClickable(chosenCity));
+            chosenCity.click();
+            Assert.assertTrue(checkCityExistence("//android.widget.Button[@content-desc=\"" + city + "\"]"));
+        }
+    }
+
+
+    private boolean checkCityExistence(String xpath) throws Exception {
+        waitUntilElementPresent(xpath, 10000L);
+        try {
+            MobileElement writtenCity = appiumDriver.findElement(By.xpath(xpath));
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void waitUntilElementPresent(String xpath, Long timeout) throws Exception {
+        boolean present = false;
+        Long begin = System.currentTimeMillis();
+        while (!present) {
+            try {
+                appiumDriver.findElement(By.xpath(xpath));
+                present = true;
+            } catch (Exception e) {
+
+            }
+            if (timeout < System.currentTimeMillis() - begin) {
+                throw new Exception();
+            }
+        }
     }
 
     /**
@@ -190,4 +318,9 @@ public class ProjectTests {
         appiumDriver.quit();
     }
 
+    @AfterMethod
+    public void resetApp() throws InterruptedException {
+        appiumDriver.resetApp();
+        Thread.sleep(10000);
+    }
 }
