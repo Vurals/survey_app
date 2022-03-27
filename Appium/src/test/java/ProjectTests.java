@@ -157,12 +157,12 @@ public class ProjectTests {
      */
     @Test
     public void testDateFormatAcceptance() {
-
+        
     }
 
     /**
      * In the survey, when a vaccination type is chosen in the dropdown menu, that type should be shown in the survey body.
-     * This method specifically tests this by choosing all of the vaccination types one by one then checking if they are shown in the survey body.
+     * This method specifically tests this by choosing all the vaccination types one by one then checking if they are shown in the survey body.
      */
     @Test
     public void testVaccinationTypeDropdownMenu() {
@@ -198,31 +198,9 @@ public class ProjectTests {
         Thread.sleep(1000);
         appiumDriver.hideKeyboard();
 
-        MobileElement cityDropdown = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
-        cityDropdown.click();
-        Thread.sleep(1000);
-        MobileElement cityItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Adana\"]"));
-        cityItem.click();
-        Thread.sleep(1000);
-
-        MobileElement vaccineDropdown = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"-\"]"));
-        vaccineDropdown.click();
-        Thread.sleep(1000);
-        MobileElement vaccineItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Sinovac\"]"));
-        vaccineItem.click();
-        Thread.sleep(1000);
-
-        MobileElement sideEffectField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[5]"));
-        MobileElement symptomField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[6]"));
-
-        sideEffectField.click();
-        sideEffectField.sendKeys("None");
-        Thread.sleep(1000);
-        appiumDriver.hideKeyboard();
-        symptomField.click();
-        symptomField.sendKeys("None");
-        Thread.sleep(1000);
-        appiumDriver.hideKeyboard();
+        chooseCity();
+        chooseVaccine();
+        fillEffectsAndSymptoms();
 
         String englishLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
 
@@ -276,6 +254,38 @@ public class ProjectTests {
     @AfterTest
     public void teardown() {
         appiumDriver.quit();
+    }
+
+    private void chooseCity() throws InterruptedException {
+        MobileElement cityDropdown = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
+        cityDropdown.click();
+        Thread.sleep(1000);
+        MobileElement cityItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Adana\"]"));
+        cityItem.click();
+        Thread.sleep(1000);
+    }
+
+    private void chooseVaccine() throws InterruptedException {
+        MobileElement vaccineDropdown = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"-\"]"));
+        vaccineDropdown.click();
+        Thread.sleep(1000);
+        MobileElement vaccineItem = appiumDriver.findElement(By.xpath("//android.view.View[@content-desc=\"Sinovac\"]"));
+        vaccineItem.click();
+        Thread.sleep(1000);
+    }
+
+    private void fillEffectsAndSymptoms() throws InterruptedException {
+        MobileElement sideEffectField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[5]"));
+        MobileElement symptomField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[6]"));
+
+        sideEffectField.click();
+        sideEffectField.sendKeys("None");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        symptomField.click();
+        symptomField.sendKeys("None");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
     }
 
 }
