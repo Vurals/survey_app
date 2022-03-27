@@ -228,12 +228,13 @@ class MyCustomFormState extends State<MyCustomForm> {
     return Form(
       key: _formKey,
       child: Column(
+        key: ValueKey('nameField'),
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              ' Lütfen tam adınızı giriniz.',
+              ' Lütfe tam adınızı giriniz.',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
