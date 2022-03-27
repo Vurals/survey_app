@@ -21,12 +21,12 @@ import java.util.Map;
 
 public class ProjectTests {
 
-    public static final String DEVICE_NAME = "Pixel 2 API 29";
+    public static final String DEVICE_NAME = "sdk_gphone_x86";
     public static final String UDID = "emulator-5554";
     public static final String PLATFORM_NAME = "Android";
-    public static final String PLATFORM_VERSION = "10";
+    public static final String PLATFORM_VERSION = "11";
     public static final String APP_PACKAGE = "com.example.survey_app";
-    public static final String APP_ACTIVITY = "com.example.survey_app.MainActivity";
+    public static final String APP_ACTIVITY = "MainActivity";
 
 
 
@@ -257,11 +257,11 @@ public class ProjectTests {
         chooseVaccine();
         fillEffectsAndSymptoms();
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
-        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[2]"));
-        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[3]"));
-        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[4]"));
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
 
         dayField.click();
         Thread.sleep(1000);
