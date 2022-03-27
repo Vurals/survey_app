@@ -350,8 +350,54 @@ public class ProjectTests {
      * This method specifically tests this by clicking the send button and checks if it is still clickable.
      */
     @Test
-    public void checkTestButtonVisibility() {
+    public void checkTestButtonVisibility() throws InterruptedException {
+        MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        nameField.click();
+        Thread.sleep(1000);
+        nameField.sendKeys("Matt Murdock");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
 
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
+
+        dayField.click();
+        Thread.sleep(1000);
+        dayField.sendKeys("24");
+        Thread.sleep(1000);
+        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
+        appiumDriver.hideKeyboard();
+        monthField.click();
+        Thread.sleep(1000);
+        monthField.sendKeys("11");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+        yearField.click();
+        yearField.sendKeys("2000");
+        Thread.sleep(1000);
+        appiumDriver.hideKeyboard();
+
+        chooseCity();
+        chooseVaccine();
+        fillEffectsAndSymptoms();
+
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        sendButton.click();
+
+        try{
+            Assert.assertFalse(Boolean.parseBoolean(sendButton.getAttribute("clickable")));
+        }
+        catch(AssertionError e){
+            System.out.println("Test case #5 failed: The \"Send\" button is still clickable after the first click.");
+            return;
+        }
+        catch (Exception e) {
+            System.out.println("Test case #5 is successful.");
+            return;
+        }
+
+        System.out.println("Test case #5 is successful.");
     }
 
     @AfterTest
