@@ -230,8 +230,8 @@ public class ProjectTests {
 
     private boolean checkButtonExistence() throws Exception {
         appiumDriver.hideKeyboard();
-        Thread.sleep(1000);
         try {
+            waitUntilElementPresent("//android.widget.Button[@content-desc=\"Gönder\"]", 1000L);
             MobileElement button = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
             return true;
         }
