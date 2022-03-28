@@ -141,7 +141,7 @@ public class ProjectTests {
      * This method specifically tests when improper data is given to the survey whether if it will show the send button or not.
      */
     @Test
-    public void testSendButtonVisibility() throws InterruptedException {
+    public void testSendButtonVisibility() throws Exception {
         MobileElement nameFiled = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
         MobileElement dateDayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
         MobileElement dateMonthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
@@ -228,7 +228,7 @@ public class ProjectTests {
         System.out.println("\nTest Case#1 Passed");
     }
 
-    private boolean checkButtonExistence() throws InterruptedException {
+    private boolean checkButtonExistence() throws Exception {
         appiumDriver.hideKeyboard();
         Thread.sleep(1000);
         try {
@@ -245,8 +245,12 @@ public class ProjectTests {
      * This method specifically tests when improper format is given to the date field whether if it will allow the improper format or not.
      */
     @Test
-    public void testDateFormatAcceptance() throws InterruptedException {
+    public void testDateFormatAcceptance() throws Exception {
         MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
+        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
+        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
+        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
+
         nameField.click();
         Thread.sleep(1000);
         nameField.sendKeys("Matt Murdock");
@@ -258,10 +262,6 @@ public class ProjectTests {
         fillEffectsAndSymptoms();
 
         Thread.sleep(3000);
-
-        MobileElement dayField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[2]"));
-        MobileElement monthField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[3]"));
-        MobileElement yearField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[4]"));
 
         dayField.click();
         Thread.sleep(1000);
@@ -282,14 +282,13 @@ public class ProjectTests {
         for (int i = -2; i < 35; i++) {
             dayField.click();
             dayField.sendKeys(i + "");
-            Thread.sleep(500);
             try{
                 if(i < 1 || i > 31)
                     Assert.assertFalse(checkButtonExistence());
                 else
                     Assert.assertTrue(checkButtonExistence());
             }
-            catch(AssertionError e){
+            catch(AssertionError | Exception e){
                 System.out.println("Test case #2 failed: Day " + i + " yields a wrong result.");
                 //TODO: Return after potential fail.
             }
@@ -303,14 +302,13 @@ public class ProjectTests {
         for (int i = -2; i < 15; i++) {
             monthField.click();
             monthField.sendKeys(i + "");
-            Thread.sleep(500);
             try{
                 if(i < 1 || i > 12)
                     Assert.assertFalse(checkButtonExistence());
                 else
                     Assert.assertTrue(checkButtonExistence());
             }
-            catch(AssertionError e){
+            catch(AssertionError | Exception e){
                 System.out.println("Test case #2 failed: Month " + i + " yields a wrong result.");
                 //TODO: Return after potential fail.
             }
@@ -326,14 +324,13 @@ public class ProjectTests {
                 continue;
             yearField.click();
             yearField.sendKeys(i + "");
-            Thread.sleep(500);
             try{
                 if(i < 1900 || i > 2022)
                     Assert.assertFalse(checkButtonExistence());
                 else
                     Assert.assertTrue(checkButtonExistence());
             }
-            catch(AssertionError e){
+            catch(AssertionError | Exception e){
                 System.out.println("Test case #2 failed: Year " + i + " yields a wrong result.");
                 //TODO: Return after potential fail.
             }
@@ -404,7 +401,7 @@ public class ProjectTests {
      * This method specifically tests this by entering all available letters to the name field and checks if the name field accepts the letter or not.
      */
     @Test
-    public void testNameFieldLetterAcceptance() throws InterruptedException {
+    public void testNameFieldLetterAcceptance() throws Exception {
         MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
         
         //Fill other fields first
@@ -440,11 +437,10 @@ public class ProjectTests {
                 continue;
             nameField.click();
             nameField.sendKeys("abcd " + character);
-            Thread.sleep(1000);
             try{
                 Assert.assertFalse(checkButtonExistence());
             }
-            catch(AssertionError e){
+            catch(AssertionError | Exception e){
                 System.out.println("Test case #4 failed: " + character + " is valid in the name field when it should not be.");
                 //TODO: Return after potential fail.
             }
@@ -453,11 +449,10 @@ public class ProjectTests {
         //All English Letters
         nameField.click();
         nameField.sendKeys(englishLetters);
-        Thread.sleep(1000);
         try{
             Assert.assertTrue(checkButtonExistence());
         }
-        catch(AssertionError e){
+        catch(AssertionError | Exception e){
             System.out.println("Test case #4 failed: The english characters are not valid in the name field when they should be.");
             //TODO: Return after potential fail.
         }
@@ -477,7 +472,7 @@ public class ProjectTests {
      * This method specifically tests this by clicking the send button and checks if it is still clickable.
      */
     @Test
-    public void checkTestButtonVisibility() throws InterruptedException {
+    public void checkTestButtonVisibility() throws Exception {
         MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
         nameField.click();
         Thread.sleep(1000);
@@ -527,16 +522,17 @@ public class ProjectTests {
         System.out.println("Test case #5 is successful.");
     }
 
-    @AfterTest
-    public void teardown() {
-        appiumDriver.quit();
-    }
-
     @AfterMethod
     public void resetApp() throws InterruptedException {
         appiumDriver.resetApp();
         Thread.sleep(10000);
     }
+    @AfterTest
+    public void teardown() {
+        appiumDriver.quit();
+    }
+
+
     private void chooseCity() throws InterruptedException {
         MobileElement cityDropdown = appiumDriver.findElement(By.xpath("(//android.widget.Button[@content-desc=\"-\"])[1]"));
         cityDropdown.click();
