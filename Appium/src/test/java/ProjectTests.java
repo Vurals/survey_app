@@ -164,17 +164,17 @@ public class ProjectTests {
         Thread.sleep(1000);
         dateDayField.click();
         Thread.sleep(1000);
-        dateDayField.sendKeys("00");
+        dateDayField.sendKeys("24");
 
         Thread.sleep(1000);
         dateMonthField.click();
         Thread.sleep(1000);
-        dateMonthField.sendKeys("00");
+        dateMonthField.sendKeys("11");
 
         Thread.sleep(1000);
         dateYearField.click();
         Thread.sleep(1000);
-        dateYearField.sendKeys("00");
+        dateYearField.sendKeys("2000");
 
         Assert.assertFalse(checkButtonExistence());
         System.out.println("Assertion#2 Passed");
@@ -231,8 +231,8 @@ public class ProjectTests {
     private boolean checkButtonExistence() throws Exception {
         appiumDriver.hideKeyboard();
         try {
-            waitUntilElementPresent("//android.widget.Button[@content-desc=\"Gönder\"]", 1000L);
-            MobileElement button = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+            waitUntilElementPresent("//android.widget.Button[@content-desc=\"Send\"]", 1000L);
+            MobileElement button = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Send\"]"));
             return true;
         }
         catch (Exception e) {
@@ -341,7 +341,7 @@ public class ProjectTests {
         Thread.sleep(1000);
         appiumDriver.hideKeyboard();
 
-        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Send\"]"));
         sendButton.click();
 
         Thread.sleep(1000);
@@ -459,7 +459,7 @@ public class ProjectTests {
 
         appiumDriver.hideKeyboard();
 
-        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Send\"]"));
         sendButton.click();
 
         Thread.sleep(1000);
@@ -504,7 +504,7 @@ public class ProjectTests {
         chooseVaccine();
         fillEffectsAndSymptoms();
 
-        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Gönder\"]"));
+        MobileElement sendButton = appiumDriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Send\"]"));
         sendButton.click();
 
         try{
