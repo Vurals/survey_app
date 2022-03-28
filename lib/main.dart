@@ -6,7 +6,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'COVİD-19 Anket Uygulaması';
+    const appTitle = 'COVID-19 Vaccination Survey';
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
@@ -26,7 +26,7 @@ class MyCustomForm extends StatefulWidget {
   }
 }
 
-enum SingingCharacter { Erkek, Kadin }
+enum SingingCharacter { Male, Female }
 final validCharacters = RegExp(r'^[a-zA-Z0-9 ]+$');
 
 // Create a corresponding State class, which holds data related to the form.
@@ -34,7 +34,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
-  SingingCharacter? _character = SingingCharacter.Erkek;
+  SingingCharacter? _character = SingingCharacter.Male;
   String _selectedValue = "-";
   String _selectedValue1 = "-";
   List<String> listOfVaccine = ["-", "Sinovac", "Turkovac", "Biontech"];
@@ -237,7 +237,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              ' Lütfe tam adınızı giriniz.',
+              ' Your name and surname:',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -248,8 +248,8 @@ class MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.person),
-              hintText: 'Tam adınızı giriniz',
-              labelText: 'İsim',
+              hintText: 'Please enter your full name',
+              labelText: 'Name Surname',
             ),
             controller: textEditingController,
             validator: (value) {
@@ -263,7 +263,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             alignment: Alignment.topLeft,
             height: 30,
             child: const Text(
-              ' Doğum Tarihinizi Giriniz.',
+              ' Your birth date in DD/MM/YYYY format:',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -283,7 +283,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.calendar_today),
                       //border: OutlineInputBorder(),
-                      hintText: 'Gün',
+                      hintText: 'Day',
                     ),
                     validator: (value) {
                       if (isNumeric(value!) &&
@@ -291,7 +291,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           value.length == 2) {
                         return null;
                       }
-                      return 'Lütfen geçerli bir gün giriniz';
+                      return 'Enter a valid day';
                     },
                   ),
                 ),
@@ -302,7 +302,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.remove),
                       //border: OutlineInputBorder(),
-                      hintText: 'Ay',
+                      hintText: 'Month',
                     ),
                     validator: (value) {
                       if (isNumeric(value!) &&
@@ -310,7 +310,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           value.length == 2) {
                         return null;
                       }
-                      return 'Lütfen geçerli bir ay giriniz';
+                      return 'Enter a valid month';
                     },
                   ),
                 ),
@@ -322,7 +322,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       helperMaxLines: 2,
                       prefixIcon: Icon(Icons.remove),
                       //border: OutlineInputBorder(),
-                      hintText: 'Yıl',
+                      hintText: 'Year',
                     ),
                     validator: (value) {
                       if (isNumeric(value!) &&
@@ -330,7 +330,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           value.length == 4) {
                         return null;
                       }
-                      return 'Lütfen geçerli bir yıl giriniz';
+                      return 'Enter a valid year';
                     },
                   ),
                 ),
@@ -346,7 +346,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               Container(
                 alignment: Alignment.topLeft,
                 child: const Text(
-                  ' İkamet ettiğiniz şehri seçiniz.',
+                  ' Choose your city:',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -373,7 +373,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 },
                 validator: (value) {
                   if (value!.toString().isEmpty) {
-                    return 'Geçerli bir şehir giriniz';
+                    return ' Please enter a valid city';
                   }
                   return null;
                 },
@@ -394,7 +394,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              ' Cinsiyetinizi seçiniz.',
+              ' Your gender:',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -405,9 +405,9 @@ class MyCustomFormState extends State<MyCustomForm> {
           Row(mainAxisSize: MainAxisSize.max, children: [
             Expanded(
               child: ListTile(
-                title: const Text('Erkek'),
+                title: const Text('Male'),
                 leading: Radio<SingingCharacter>(
-                  value: SingingCharacter.Erkek,
+                  value: SingingCharacter.Male,
                   groupValue: _character,
                   onChanged: (SingingCharacter? value) {
                     setState(() {
@@ -419,9 +419,9 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             Expanded(
               child: ListTile(
-                title: const Text('Kadın'),
+                title: const Text('Female'),
                 leading: Radio<SingingCharacter>(
-                  value: SingingCharacter.Kadin,
+                  value: SingingCharacter.Female,
                   groupValue: _character,
                   onChanged: (SingingCharacter? value) {
                     setState(() {
@@ -435,7 +435,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              ' Uygulanan aşı tipini seçiniz.',
+              ' The vaccine type you applied:',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -462,7 +462,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
             validator: (value) {
               if (value!.toString().isEmpty) {
-                return 'Geçerli bir şehir giriniz';
+                return 'Enter a valid city';
               }
               return null;
             },
@@ -481,7 +481,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              ' Aşı uygulamasından sonra gözlenen yan etkiler.',
+              ' Any side effects after vaccination:',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -495,11 +495,11 @@ class MyCustomFormState extends State<MyCustomForm> {
               helperMaxLines: 2,
               prefixIcon: Icon(Icons.coronavirus_sharp),
               //border: OutlineInputBorder(),
-              hintText: 'Örn: Baş ağrısı, Yüksek ateş',
+              hintText: 'Ex: Headache, fever...',
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Yan etkiler boş bırakılamaz, yan etki gözlemlemediyseniz "yok" yazınız.';
+                return 'Do not leave this field empty, write \"none\" if you did not observe side effects';
               }
               return null;
             },
@@ -510,7 +510,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              ' 3. Aşı uygulamasından sonra gözlenen COVİD-19 belirtileri veya pozitif PCR testiniz varsa belirtiniz.',
+              ' Any PCR positive cases and Covid-19 symptoms after 3rd vaccination:',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
@@ -524,11 +524,11 @@ class MyCustomFormState extends State<MyCustomForm> {
               helperMaxLines: 2,
               prefixIcon: Icon(Icons.coronavirus_sharp),
               //border: OutlineInputBorder(),
-              hintText: 'Örn: Baş ağrısı, Yüksek ateş',
+              hintText: 'Ex: Headache, fever...',
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Belirtiniz veya pozitif PCR sonucunuz yoksa "yok" yazınız.';
+                return 'Do not leave this field empty, write \"none\" if you did not observe positive cases';
               }
               return null;
             },
@@ -537,7 +537,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               padding: const EdgeInsets.only(left: 175.0, top: 20.0),
               child: status
                   ? ElevatedButton(
-                      child: const Text('Gönder'),
+                      child: const Text('Send'),
                       onPressed: status
                           ? () {
                               // It returns true if the form is valid, otherwise returns false
