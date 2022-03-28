@@ -27,6 +27,7 @@ class MyCustomForm extends StatefulWidget {
 }
 
 enum SingingCharacter { Erkek, Kadin }
+final validCharacters = RegExp(r'^[a-zA-Z0-9 ]+$');
 
 // Create a corresponding State class, which holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
@@ -142,11 +143,13 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 
   checkAllFields() {
-    if ((textEditingController.text.trim() != "") &&
+    if ((validCharacters.hasMatch(textEditingController.text.trim())) &&
         ((isNumeric(textEditingController2.text) &&
+            int.parse(textEditingController2.text) > 0 &&
             int.parse(textEditingController2.text) <= 31 &&
             textEditingController2.text.length == 2)) &&
         ((isNumeric(textEditingController3.text) &&
+            int.parse(textEditingController3.text) > 0 &&
             int.parse(textEditingController3.text) <= 12 &&
             textEditingController3.text.length == 2)) &&
         ((isNumeric(textEditingController4.text) &&
