@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SubmitedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'COVİD-19 Anket Uygulaması';
+    final appTitle = 'COVID-19 Vaccination Survey';
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
@@ -15,7 +15,7 @@ class SubmitedPage extends StatelessWidget {
               alignment: Alignment.center,
               height: 100,
               child: const Text(
-                ' Katıldığınız için teşekkür ederiz.',
+                ' Your answers have been recorded, thank you.',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 25,
