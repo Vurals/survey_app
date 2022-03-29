@@ -353,6 +353,8 @@ public class ProjectTests {
             chosenCity.click();
             Assert.assertTrue(checkCityExistence("//android.widget.Button[@content-desc=\"" + city + "\"]"));
         }
+
+        System.out.println("Test case #3 is successful.");
     }
 
 
@@ -447,7 +449,7 @@ public class ProjectTests {
      * This method specifically tests this by clicking the send button and checks if it is still clickable.
      */
     @Test
-    public void checkTestButtonVisibility() throws Exception {
+    public void testRepeatedClick() throws Exception {
         MobileElement nameField = appiumDriver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]"));
         nameField.click();
         Thread.sleep(1000);
