@@ -402,7 +402,6 @@ public class ProjectTests {
         Thread.sleep(1000);
         dayField.sendKeys("24");
         Thread.sleep(1000);
-        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
         appiumDriver.hideKeyboard();
         monthField.click();
         Thread.sleep(1000);
