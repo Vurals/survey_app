@@ -27,7 +27,7 @@ class MyCustomForm extends StatefulWidget {
 }
 
 enum SingingCharacter { Male, Female }
-final validCharacters = RegExp(r'^[a-zA-Z0-9 ]+$');
+final validCharacters = RegExp(r'^[a-zA-Z ]+$');
 
 // Create a corresponding State class, which holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
