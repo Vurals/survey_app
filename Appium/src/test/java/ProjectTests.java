@@ -267,7 +267,6 @@ public class ProjectTests {
         Thread.sleep(1000);
         dayField.sendKeys("24");
         Thread.sleep(1000);
-        //webDriverWait.until(ExpectedConditions.textToBePresentInElement(dayField, "24"));
         appiumDriver.hideKeyboard();
         monthField.click();
         Thread.sleep(1000);
@@ -281,17 +280,14 @@ public class ProjectTests {
 
         for (int i = -2; i < 35; i++) {
             dayField.click();
-            dayField.sendKeys(i + "");
-            try{
-                if(i < 1 || i > 31)
-                    Assert.assertFalse(checkButtonExistence());
-                else
-                    Assert.assertTrue(checkButtonExistence());
-            }
-            catch(AssertionError | Exception e){
-                System.out.println("Test case #2 failed: Day " + i + " yields a wrong result.");
-                //TODO: Return after potential fail.
-            }
+            if(0 < i && i < 10)
+                dayField.sendKeys("0" + i);
+            else
+                dayField.sendKeys(i + "");
+            if(i < 1 || i > 31)
+                Assert.assertFalse(checkButtonExistence());
+            else
+                Assert.assertTrue(checkButtonExistence());
         }
 
         dayField.click();
@@ -301,17 +297,14 @@ public class ProjectTests {
 
         for (int i = -2; i < 15; i++) {
             monthField.click();
-            monthField.sendKeys(i + "");
-            try{
-                if(i < 1 || i > 12)
-                    Assert.assertFalse(checkButtonExistence());
-                else
-                    Assert.assertTrue(checkButtonExistence());
-            }
-            catch(AssertionError | Exception e){
-                System.out.println("Test case #2 failed: Month " + i + " yields a wrong result.");
-                //TODO: Return after potential fail.
-            }
+            if(0 < i && i < 10)
+                monthField.sendKeys("0" + i);
+            else
+                monthField.sendKeys(i + "");
+            if(i < 1 || i > 12)
+                Assert.assertFalse(checkButtonExistence());
+            else
+                Assert.assertTrue(checkButtonExistence());
         }
 
         monthField.click();
@@ -320,20 +313,14 @@ public class ProjectTests {
         Thread.sleep(500);
 
         for (int i = 1898; i < 2025; i++) {
-            if(i >1903 && i < 2020)     //TODO: If the tests run faster, remove this
+            if(i >1903 && i < 2020)
                 continue;
             yearField.click();
             yearField.sendKeys(i + "");
-            try{
-                if(i < 1900 || i > 2022)
-                    Assert.assertFalse(checkButtonExistence());
-                else
-                    Assert.assertTrue(checkButtonExistence());
-            }
-            catch(AssertionError | Exception e){
-                System.out.println("Test case #2 failed: Year " + i + " yields a wrong result.");
-                //TODO: Return after potential fail.
-            }
+            if(i < 1900 || i > 2022)
+                Assert.assertFalse(checkButtonExistence());
+            else
+                Assert.assertTrue(checkButtonExistence());
         }
 
         yearField.click();
@@ -437,25 +424,13 @@ public class ProjectTests {
                 continue;
             nameField.click();
             nameField.sendKeys("abcd " + character);
-            try{
-                Assert.assertFalse(checkButtonExistence());
-            }
-            catch(AssertionError | Exception e){
-                System.out.println("Test case #4 failed: " + character + " is valid in the name field when it should not be.");
-                //TODO: Return after potential fail.
-            }
+            Assert.assertFalse(checkButtonExistence());
         }
 
         //All English Letters
         nameField.click();
         nameField.sendKeys(englishLetters);
-        try{
-            Assert.assertTrue(checkButtonExistence());
-        }
-        catch(AssertionError | Exception e){
-            System.out.println("Test case #4 failed: The english characters are not valid in the name field when they should be.");
-            //TODO: Return after potential fail.
-        }
+        Assert.assertTrue(checkButtonExistence());
 
         appiumDriver.hideKeyboard();
 
