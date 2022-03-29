@@ -485,10 +485,6 @@ public class ProjectTests {
         try{
             Assert.assertFalse(Boolean.parseBoolean(sendButton.getAttribute("clickable")));
         }
-        catch(AssertionError e){
-            System.out.println("Test case #5 failed: The \"Send\" button is still clickable after the first click.");
-            return;
-        }
         catch (Exception e) {
             System.out.println("Test case #5 is successful.");
             return;
